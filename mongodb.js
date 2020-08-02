@@ -1,11 +1,14 @@
 // CRUD
 
-const mongodb = require('mongodb')
-const { ifError } = require('assert')
-const MongoClient = mongodb.MongoClient
+const { MongoClient, ObjectID } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const database = 'task-manager'
+
+const id = new ObjectID()
+console.log(id.id.length);
+console.log(id.toHexString().length);
+console.log(id.getTimestamp())
 
 MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
     if (error) {
@@ -14,24 +17,24 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
     const db = client.db(database)
 
-    db.collection('tasks').insertMany([
-        {
-            description: 'Study',
-            completed: true
-        }, {
-            description: 'Sleep',
-            completed: false
-        }, {
-            description: 'Play video games',
-            completed: true
-        }
-    ], (error, result) => {
-        if (error) {
-            return console.log('Unable to insert collection');
-        }
+    // db.collection('tasks').insertMany([
+    //     {
+    //         description: 'Study',
+    //         completed: true
+    //     }, {
+    //         description: 'Sleep',
+    //         completed: false
+    //     }, {
+    //         description: 'Play video games',
+    //         completed: true
+    //     }
+    // ], (error, result) => {
+    //     if (error) {
+    //         return console.log('Unable to insert collection');
+    //     }
 
-        console.log(result.ops);
-    })
+    //     console.log(result.ops);
+    // })
 
     // db.collection('users').insertMany([
     //     {
@@ -49,14 +52,15 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(result.ops);
     // })
 
-    // db.collection('users').insertOne({
-    //     name: 'Petros',
-    //     age: 34
-    // }, (error, result) => {
-    //     if(error) {
-    //         return console.log('Unable to insert user');
-    //     }
+    db.collection('users').insertOne({
+        _id: id,
+        name: 'Gunther',
+        age: 65
+    }, (error, result) => {
+        if(error) {
+            return console.log('Unable to insert user');
+        }
 
-    //     console.log(result.ops);
-    // })
+        console.log(result.ops);
+    })
 })
