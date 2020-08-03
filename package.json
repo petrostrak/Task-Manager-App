@@ -19,6 +19,7 @@
   "homepage": "https://github.com/petrostrak/Task-Manager-App#readme",
   "dependencies": {
     "mongodb": "^3.6.0",
-    "mongoose": "^5.9.27"
+    "mongoose": "^5.9.27",
+    "validator": "^10.9.0"
   }
 }
