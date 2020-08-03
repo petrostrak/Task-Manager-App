@@ -30,6 +30,7 @@ app.get('/users/:id', (req, res) => {
         res.status(200).send(user)
 
     }).catch((e) => {
+<<<<<<< HEAD
         res.status(500).send(e)
     })
 })
@@ -55,6 +56,9 @@ app.get('/tasks/:id', (req, res) => {
 
     }).catch((e) => {
         res.status(500).send(e)
+=======
+        res.status(500).send()
+>>>>>>> master
     })
 })
 
