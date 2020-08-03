@@ -12,7 +12,7 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
     const db = client.db(database)
 
-    // DELETE
+    // DELETE/home/petros/.mongodb/bin/mongod --dbpath=/home/petros/.mongodb-data
     db.collection('tasks').deleteOne({
         description: 'Play video games'
     }).then((result) => {
