@@ -1,17 +1,13 @@
 const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
+const auth = require('../middleware/auth')
 
 // GET for resource reading
 // https://mongoosejs.com/docs/queries.html
 // GET ALL USERS
-router.get('/users', async (req, res) => {
-    const users = await User.find({})
-    try {
-        res.status(200).send(users)
-    } catch (e) {
-        res.status(500).send(e)
-    }
+router.get('/users/me', auth , async (req, res) => {
+    res.send(req.user)
 })
 
 // GET ONE USER
