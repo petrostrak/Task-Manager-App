@@ -2,6 +2,10 @@ const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
 const auth = require('../middleware/auth')
+const multer = require('multer')
+const avatar = multer({
+    dest: 'avatars'
+})
 
 // GET for resource reading
 // https://mongoosejs.com/docs/queries.html
@@ -101,6 +105,12 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     } catch (e) {
         res.status(500).send()
     }
+})
+
+
+// UPLOAD profile pic
+router.post('/users/me/avatar', avatar.single('avatar'), (req, res) => {
+    res.send()
 })
 
 module.exports = router
