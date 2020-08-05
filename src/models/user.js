@@ -50,6 +50,13 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+// VIRTUAL PROPERTY
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'author'
+})
+
 // HIDE PASSWORD FROM CALLS
 userSchema.methods.toJSON = function () {
     const user = this
