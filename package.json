@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/petrostrak/Task-Manager-App#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
