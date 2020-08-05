@@ -3,9 +3,6 @@ const router = new express.Router()
 const User = require('../models/user')
 const auth = require('../middleware/auth')
 const multer = require('multer')
-const avatar = multer({
-    dest: 'avatars'
-})
 
 // GET for resource reading
 // https://mongoosejs.com/docs/queries.html
@@ -107,7 +104,18 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     }
 })
 
-
+const avatar = multer({
+    dest: 'avatars',
+    limits: {
+        fieldSize: 1000000 // a million bytes = 1 mb
+    },
+    fileFilter(req, file, cb){ //cb = callback
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+            return cb(new Error('Image file must be in jpg, jpeg or png format.'))
+        }
+        cb(undefined, true)
+    }
+})
 // UPLOAD profile pic
 router.post('/users/me/avatar', avatar.single('avatar'), (req, res) => {
     res.send()
