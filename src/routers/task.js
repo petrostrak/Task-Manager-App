@@ -6,7 +6,10 @@ const auth = require('../middleware/auth')
 // GET ALL TASKS
 // GET /tasks?completed=true
 // GET /tasks?limit=10&skip=20
+<<<<<<< HEAD
 // GET /tasks?sortBy=createdAt:desc
+=======
+>>>>>>> master
 router.get('/tasks', auth, async (req, res) => {
     const match = {}
     const sort = {}
@@ -27,8 +30,12 @@ router.get('/tasks', auth, async (req, res) => {
             match,
             options: {
                 limit: parseInt(req.query.limit),
+<<<<<<< HEAD
                 skip: parseInt(req.query.skip),
                 sort
+=======
+                skip: parseInt(req.query.skip)
+>>>>>>> master
             }
         }).execPopulate()
         res.status(200).send(req.user.tasks)
