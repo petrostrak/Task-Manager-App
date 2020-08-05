@@ -4,6 +4,8 @@ const User = require('../models/user')
 const auth = require('../middleware/auth')
 const multer = require('multer')
 const sharp = require('sharp')
+const { sendWelcomeEmail, sendFarewellEmail } = require('../emails/account')
+const { send } = require('@sendgrid/mail')
 
 // GET for resource reading
 // https://mongoosejs.com/docs/queries.html
@@ -35,6 +37,7 @@ router.post('/users', async (req, res) => {
 
     try {
         await user.save()
+        sendWelcomeEmail(user.email, user.name)
         const token = await user.generateAuthToken()
         res.status(201).send({ user, token })
     } catch (e) {
@@ -65,6 +68,7 @@ router.patch('/users/me', auth, async (req, res) => {
 router.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.remove()
+        sendFarewellEmail(user.email, user.name)
         res.send(req.user)
     } catch (e) {
         res.status(500).send()
